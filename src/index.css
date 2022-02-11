@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+*{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+p {
+    font-size: large;
+}
+
+body{
+    background-color: #FF5959;
+}
+
+body > #root {
+    margin: 0 auto;
+    background-color: white;
+}
+
+#root {
+    padding: 20px 56px;
+    width: 650px;
+    min-height: 100vh;
+}
+
+#root > * {
+    margin: 28px 0px;
+}
+
+h2 {
+    text-align: center;
+}
+/* FORM */
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form > * {
+    margin: 0 6px;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+}
+
+form > input {
+    width: 200px;
+    background-color: #EFEFEF;
+}
+
+form > button {
+    background-color: #FF5959;
+    color: white;
+}
+
+/* POKEMON ARTICLE */
+article > * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Header */
+header > * {
+    margin-bottom: 24px;
+}
+img {
+    object-fit: contain;
+    width: 200px;
+    height: 200px;
+}
+
+#image-loading-true{
+    display: none;
+}
+
+#image-loading-false {
+    display: block;
+}
+
+
+
+/* Pokemon Data */
+#data-content > ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#data-content .data-key {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.type-data-value {
+    display: flex;
+}
+
+.type-data-value > span {
+    margin-right: 12px;
+    text-align: center;
+    padding: 4px;
+    width: 100px;
+    border-radius: 8px;
+    color: white;
+}
+
+
+.normal-type {
+    background-color: #A8A878;
+}
+
+.fire-type {
+    background-color: #F08030;
+}
+
+.water-type {
+    background-color: #6890F0;
+}
+
+.grass-type {
+    background-color: #78C850;
+}
+
+.electric-type {
+    background-color: #F8D030;
+}
+
+.ice-type {
+    background-color: #98D8D8;
+}
+
+.fighting-type {
+    background-color: #C03028;
+}
+
+.poison-type {
+    background-color: #A040A0;
+}
+
+.ground-type {
+    background-color: #E0C068;
+}
+
+.flying-type {
+    background-color: #A890F0;
+}
+
+.psychic-type {
+    background-color: #F85888;
+}
+
+.bug-type {
+    background-color: #A8B820;
+}
+
+.rock-type {
+    background-color: #B8A038;
+}
+
+.ghost-type {
+    background-color: #705898;
+}
+
+.dark-type {
+    background-color: #705898;
+}
+
+.dragon-type {
+    background-color: #705898;
+}
+
+.steel-type {
+    background-color: #705898;
+}
+
+.fairy-type {
+    background-color: #705898;
+}
