@@ -1,5 +1,5 @@
 # Pokedex
-A simple WebApp built to practice the useEffect hook, Error Boundaries, Api Requests and testing with Jest and React-Testing-Library.
+A simple WebApp built to practice the useEffect hook, Error Boundaries and API requests
 
 ### Application Requirements
 1. User enters a pokemon's name.
