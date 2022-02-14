@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { fetchPokemon } from "../apis/pokemon_api";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { ErrorBoundary } from '../ErrorBoundary';
 
 /** COMPONENTS */
 const Pokedex = () => {
 
     const [pokemonInfo, setPokemonInfo] = useState({});    
     const [loadingStatus, setLoadingStatus] = useState(true);
+    const [requestError, setRequestError] = useState(false);
 
     useEffect(async () => {
         setLoadingStatus(true);
@@ -22,23 +24,32 @@ const Pokedex = () => {
         setPokemonInfo({});
         const formData = new FormData(e.target);
         const pokemonName = formData.get("pokemonName");
-        const relevantInfo = await fetchPokemon(pokemonName.toLowerCase().replace(/\s/g, ''));
-        setPokemonInfo(
-            relevantInfo
-        );
+        try {
+            const relevantInfo = await fetchPokemon(pokemonName.toLowerCase().replace(/\s/g, ''));
+            setPokemonInfo(
+                relevantInfo
+            );
+            setRequestError(false);
+        }
+        catch{
+            setRequestError(true)
+        }
     }
 
     return(
         <>  
             <h2>Search a Pokemon!</h2>
+            
             <SearchBar onSubmit={onSubmit}/>
             <SkeletonTheme duration={0.8} baseColor="whitesmoke" highlightColor="#ececec">
-                <PokemonInfo>
-                    <Header name={pokemonInfo?.name}
-                        loadingStatus={loadingStatus}
-                        img={<PokemonImage loadingStatus={loadingStatus }src={pokemonInfo?.sprite} setLoadingStatus={setLoadingStatus}/>}/>
-                    <DataContent loadingStatus={loadingStatus} data={pokemonInfo}/>
-                </PokemonInfo>
+                <ErrorBoundary key={requestError ? 1 : 0}>
+                        <PokemonInfo>
+                            <Header error={requestError} name={pokemonInfo.name}
+                                loadingStatus={loadingStatus}
+                                img={<PokemonImage loadingStatus={loadingStatus }src={pokemonInfo?.sprite} setLoadingStatus={setLoadingStatus}/>}/>
+                            <DataContent loadingStatus={loadingStatus} data={pokemonInfo}/>
+                        </PokemonInfo>
+                </ErrorBoundary>    
             </SkeletonTheme>
         </>
     );    
@@ -53,13 +64,18 @@ const SearchBar = ({ onSubmit }) => {
     );
 };
 
-const Header = ({ name, img, loadingStatus }) => {
-    return(
-        <header>
-            <h2>{loadingStatus ? "Fetching Pokemon Data..." : name?.toUpperCase()}</h2>
-            {img}
-        </header>
-    );
+const Header = ({ error, name, img, loadingStatus }) => {
+    if (error) {
+        throw error
+    }
+    else{
+        return(
+            <header>
+                <h2>{loadingStatus ? "Fetching Pokemon Data..." : name.toUpperCase()}</h2>
+                {img}
+            </header>
+        );
+    }
 };
 
 const PokemonImage = ({ loadingStatus, src, setLoadingStatus} ) => {
@@ -80,6 +96,7 @@ const PokemonInfo = ({ children }) => {
 }
 
 const DataContent = ( { data, loadingStatus } ) => {
+
     return(
         <section id="data-content">
             {
